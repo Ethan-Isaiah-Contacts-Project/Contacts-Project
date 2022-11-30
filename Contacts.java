@@ -64,6 +64,8 @@ public class Contacts  {
                     break;
                 case 2:
                     System.out.println(SPACER);
+                    System.out.println("ADD CONTACT");
+                    System.out.println();
                     name = Input.getContactName();
                     number = Input.getPhoneNumber();
                     addContact(name,number);
@@ -108,6 +110,8 @@ public class Contacts  {
 
     public static void searchContact () throws IOException {
         System.out.println(SPACER);
+        System.out.println("SEARCH CONTACTS");
+        System.out.println();
         String userInput = Input.getSearchString();
         System.out.println();
         userInput = userInput.trim();
@@ -137,6 +141,7 @@ public class Contacts  {
         List<String> fileContents = Files.readAllLines(filePath);
         System.out.println(SPACER);
         System.out.println("CONTACTS LIST");
+        System.out.println();
         System.out.println("Entry #: Name | Number");
         for (int i =0; i < fileContents.size(); i++) {
             System.out.println((i + 1) + ": " + fileContents.get(i));
@@ -148,6 +153,8 @@ public class Contacts  {
         Path filePath = Paths.get("file.txt");
         List<String> fileContents = Files.readAllLines(filePath);
         System.out.println(SPACER);
+        System.out.println("DELETE CONTACTS");
+        System.out.println();
         System.out.println("Entry #: Name | Number");
         System.out.println("0: Exit");
         for (int i =0; i < fileContents.size(); i++) {
