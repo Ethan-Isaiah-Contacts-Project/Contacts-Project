@@ -45,7 +45,7 @@ public class Contacts  {
     public static void main(String[] args) throws IOException {
         //addContact("Ethan",22);
         String name;
-        long number;
+        String number;
 
         int ch;
         do{
@@ -80,6 +80,7 @@ public class Contacts  {
             }
         }while(ch!=5);
 
+//        System.out.println(buildPhoneNumber(1231231234L));
 
 
 
@@ -90,8 +91,24 @@ public class Contacts  {
 // 🟣🟣🟣🟣🟣🟣🟣🟣 Below this are the methods built in this Class, with the Exception of the Input Class 🟣🟣🟣🟣🟣🟣🟣🟣
 
 
+    public static String buildPhoneNumber(long num){
+        String formattedNumberString = "";
+        String oGNum = String.valueOf(num);
+        ;
+        for (int i = oGNum.toCharArray().length -1; i >= 0; i--){
+            if (   i == oGNum.toCharArray().length -5
+                || i == oGNum.toCharArray().length -8
+                || i == oGNum.toCharArray().length -11
+                || i == oGNum.toCharArray().length -14){
+                formattedNumberString = oGNum.toCharArray()[i] + "-" + formattedNumberString;
+            } else {
+                formattedNumberString = oGNum.toCharArray()[i] + formattedNumberString;
+            }
+        }
+        return formattedNumberString;
+    }
 
-    public static void addContact (String name, long number) {
+    public static void addContact (String name, String number) {
 
         System.out.println("Added: " + name + " | " + number);
         File file = new File("file.txt");
