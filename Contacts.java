@@ -62,8 +62,8 @@ public class Contacts  {
 
             switch (ch) {
                 case 2:
-                    name = Input.getString("Firstname Lastname");
-                    number = 22;
+                    name = Input.getContactName();
+                    number = Input.getPhoneNumber();
                     addContact(name,number);
                     break;
             }

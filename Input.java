@@ -20,6 +20,12 @@ public class Input {
         return stringUserInput;
     }
 
+    public static String getContactName(){
+        System.out.print("Firstname Lastname : ");
+        stringUserInput = scanner.nextLine();
+        return stringUserInput;
+    }
+
     public static boolean yesNo(){
         System.out.print("Yes or No? : ");
         stringUserInput = scanner.nextLine();
@@ -119,7 +125,7 @@ public class Input {
             }
             prompt += i + ", ";
         }
-        System.out.println(prompt);
+        System.out.print(prompt);
         stringUserInput = scanner.nextLine();
         try {
             Integer.parseInt(stringUserInput);
@@ -147,6 +153,19 @@ public class Input {
         }
         validStringUserInput = stringUserInput;
         return Integer.parseInt(validStringUserInput);
+    }
+
+    public static long getPhoneNumber(){
+        System.out.print("Phone Number (ex: 1112223456): ");
+        stringUserInput = scanner.nextLine();
+        try {
+            Long.parseLong(stringUserInput);
+        } catch (NumberFormatException nfe){
+            System.out.println("Invalid input... ");
+            getPhoneNumber();
+        }
+        validStringUserInput = stringUserInput;
+        return Long.parseLong(validStringUserInput);
     }
 
     public static int getInt(String prompt){
