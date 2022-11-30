@@ -161,7 +161,7 @@ public class Input {
         return Integer.parseInt(validStringUserInput);
     }
 
-    public static long getPhoneNumber(){
+    public static String getPhoneNumber(){
         System.out.print("Phone Number (ex: 1112223456): ");
         stringUserInput = scanner.nextLine();
         try {
@@ -170,9 +170,17 @@ public class Input {
             System.out.println("Invalid input... ");
             getPhoneNumber();
         }
-
+        int longLength = stringUserInput.toCharArray().length;
+        if (longLength != 7 &&
+            longLength != 10 &&
+            longLength != 11 &&
+            longLength != 12 &&
+            longLength != 13 &&
+            longLength != 14){
+            getPhoneNumber();
+        }
         validStringUserInput = stringUserInput;
-        return Long.parseLong(validStringUserInput);
+        return Contacts.buildPhoneNumber(Long.parseLong(validStringUserInput));
     }
 
     public static int getInt(String prompt){
