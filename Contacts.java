@@ -1,10 +1,7 @@
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.List;
+import java.io.PrintWriter;
 
 
 public class Contacts  {
@@ -42,43 +39,58 @@ public class Contacts  {
 //    4. Keep calling the method from step two until the user chooses to exit.
 //    5. Once the user chooses to exit, re-write the contents of the contacts.txt file using the List of Contact objects.
 
-    private String name;
-    private String phone;
 
-    Contacts(String name, String phone){
-        this.name = name;
-        this.phone = phone;
+
+
+
+
+    public static void main(String[] args) {
+        //addContact("Ethan",22);
+        String name;
+        long number;
+
+        int ch;
+        do{
+            System.out.println("UI menu:");
+            System.out.println("1. View contacts.");
+            System.out.println("2. Add a new contact.");
+            System.out.println("3. Search a contact by name.");
+            System.out.println("4. Delete an existing contact.");
+            System.out.println("5. Exit.");
+
+            ch = Input.getIntUIMenu(1,5);
+
+            switch (ch) {
+                case 2:
+                    name = Input.getString("Firstname Lastname");
+                    number = 22;
+                    addContact(name,number);
+                    break;
+            }
+        }while(ch!=5);
     }
 
-     String directory = "ContactsPackage";
-     String filename = "contacts.txt";
+    public static void addContact (String name, long number) {
 
-     Path dataDirectory = Paths.get(directory);
-     Path dataFile = Paths.get(directory, filename);
-
-Contacts Isaiah = new Contacts("Isaiah", "7204389371");
-
-List<String> contactList = Arrays.asList("line 1", "line 2");
+        System.out.println("Added: " + name + " - " + number);
+        File file = new File("file.txt");
 
 
-//    /**
-//     * Use Files class from Java 1.7 to write files, internally uses OutputStream
-//     * @param data
-//     */
-//    private static void writeUsingFiles(String data) {
-//        try {
-//            Files.write(Paths.get("/Users/pankaj/files.txt"), data.getBytes());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+        try {
+
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            PrintWriter pw = new PrintWriter(new FileWriter(file,true));
+            pw.println(name + " | " + number);
+            pw.close();
 
 
-
-
-    public static void main(String[] args) throws IOException {
-
-
-
+        }
+        catch (IOException e) { System.out.println(e.getMessage());
+        }
     }
+
+
 }
