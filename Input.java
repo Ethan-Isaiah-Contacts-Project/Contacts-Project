@@ -170,6 +170,7 @@ public class Input {
             System.out.println("Invalid input... ");
             getPhoneNumber();
         }
+
         validStringUserInput = stringUserInput;
         return Long.parseLong(validStringUserInput);
     }
