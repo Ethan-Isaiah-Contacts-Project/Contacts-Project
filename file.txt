@@ -1,5 +1,2 @@
-Donkey kong 177 | 22
-Master Cheif | 22
-link | 22
-
-
+mario | 33
+luigi | 44

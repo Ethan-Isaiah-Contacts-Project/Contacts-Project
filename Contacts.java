@@ -1,7 +1,4 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -43,6 +40,7 @@ import java.util.List;
 
 public class Contacts  {
 
+    final static String SPACER = "-----------------------";
 
     public static void main(String[] args) throws IOException {
         //addContact("Ethan",22);
@@ -65,12 +63,17 @@ public class Contacts  {
                     viewContactList();
                     break;
                 case 2:
+                    System.out.println(SPACER);
                     name = Input.getContactName();
                     number = Input.getPhoneNumber();
                     addContact(name,number);
                     break;
                 case 3:
                     searchContact();
+                    break;
+                case 4:
+                    viewContactListDelete();
+                    deleteContact();
                     break;
             }
         }while(ch!=5);
@@ -86,83 +89,101 @@ public class Contacts  {
 
 
 
-
-
     public static void addContact (String name, long number) {
 
-        System.out.println("Added: " + name + " - " + number);
+        System.out.println("Added: " + name + " | " + number);
         File file = new File("file.txt");
-
-
         try {
-
             if (!file.exists()) {
                 file.createNewFile();
             }
-
             PrintWriter pw = new PrintWriter(new FileWriter(file,true));
             pw.println(name + " | " + number);
             pw.close();
-
-
+            System.out.println(SPACER);
         }
         catch (IOException e) { System.out.println(e.getMessage());
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
     public static void searchContact () throws IOException {
+        System.out.println(SPACER);
         String userInput = Input.getSearchString();
+        System.out.println();
         userInput = userInput.trim();
         Path filePath = Paths.get("file.txt");
         List<String> fileContents = Files.readAllLines(filePath);
         boolean wasFound = false;
 
         for (int i =0; i < fileContents.size(); i++) {
-
-
-                if (fileContents.get(i).toLowerCase().indexOf(userInput.toLowerCase()) != -1 && userInput.toCharArray().length > 0) {
-                    System.out.println("----------------------------------");
-                    System.out.println("You got : " + fileContents.get(i));
-                    System.out.println("----------------------------------");
-                    wasFound = true;
-                }
-
+            if (fileContents.get(i).toLowerCase().indexOf(userInput.toLowerCase()) != -1 && userInput.toCharArray().length > 0) {
+//                System.out.println(SPACER);
+                System.out.println("You got : " + fileContents.get(i));
+//                System.out.println(SPACER);
+                wasFound = true;
             }
+        }
         if (!wasFound) {
-            System.out.println("----------------------------------");
+//            System.out.println(SPACER);
             System.out.println("Could not find : " + userInput);
-            System.out.println("----------------------------------");
+//            System.out.println(SPACER);
         }
-        }
+        System.out.println(SPACER);
 
-    public static void viewContactList () throws IOException {
+    }
+
+    public static void viewContactList() throws IOException {
         Path filePath = Paths.get("file.txt");
         List<String> fileContents = Files.readAllLines(filePath);
-
+        System.out.println(SPACER);
+        System.out.println("CONTACTS LIST");
+        System.out.println("Entry #: Name | Number");
         for (int i =0; i < fileContents.size(); i++) {
+            System.out.println((i + 1) + ": " + fileContents.get(i));
+        }
+        System.out.println(SPACER);
+    }
 
-            System.out.println(fileContents.get(i));
+    public static void viewContactListDelete() throws IOException {
+        Path filePath = Paths.get("file.txt");
+        List<String> fileContents = Files.readAllLines(filePath);
+        System.out.println(SPACER);
+        System.out.println("Entry #: Name | Number");
+        System.out.println("0: Exit");
+        for (int i =0; i < fileContents.size(); i++) {
+            System.out.println((i + 1) + ": " + fileContents.get(i));
+        }
+        System.out.println();
+    }
 
+    public static void deleteContact() throws IOException {
+        Path filePath = Paths.get("file.txt");
+        List<String> fileContents = Files.readAllLines(filePath);
+        System.out.println("Which Entry # to delete : ");
+        int userChoice = Input.getInt(0, fileContents.size());
+
+
+        if (userChoice != 0){
+            File file = new File("file.txt");
+            new FileWriter(file, false).close();
+            try {
+                file.createNewFile();
+                PrintWriter pw = new PrintWriter(new FileWriter(file,true));
+                for (int i = 0; i < fileContents.size(); i++){
+                    if (userChoice != (i+1)){
+                        pw.println(fileContents.get(i));
+                    }
+                }
+                pw.close();
+            }catch (IOException e) { System.out.println(e.getMessage());
+            }
+            System.out.println("Deleted : " + fileContents.get(userChoice-1));
         }
 
-
-
-    }
-
-
+        System.out.println(SPACER);
 
     }
+}
 
 
 
