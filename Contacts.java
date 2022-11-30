@@ -2,9 +2,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-
-
-public class Contacts  {
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 
 //    Contacts data stored in a file named contacts.txt
 //    Contact stored as a name and phone number combination.
@@ -40,11 +41,10 @@ public class Contacts  {
 //    5. Once the user chooses to exit, re-write the contents of the contacts.txt file using the List of Contact objects.
 
 
+public class Contacts  {
 
 
-
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         //addContact("Ethan",22);
         String name;
         long number;
@@ -61,14 +61,32 @@ public class Contacts  {
             ch = Input.getIntUIMenu(1,5);
 
             switch (ch) {
+                case 1:
+                    viewContactList();
+                    break;
                 case 2:
                     name = Input.getContactName();
                     number = Input.getPhoneNumber();
                     addContact(name,number);
                     break;
+                case 3:
+                    searchContact();
+                    break;
             }
         }while(ch!=5);
+
+
+
+
+
     }
+
+
+// 🟣🟣🟣🟣🟣🟣🟣🟣 Below this are the methods built in this Class, with the Exception of the Input Class 🟣🟣🟣🟣🟣🟣🟣🟣
+
+
+
+
 
     public static void addContact (String name, long number) {
 
@@ -93,4 +111,58 @@ public class Contacts  {
     }
 
 
-}
+
+
+
+
+
+
+
+
+
+
+    public static void searchContact () throws IOException {
+        String userInput = Input.getSearchString();
+        userInput = userInput.trim();
+        Path filePath = Paths.get("file.txt");
+        List<String> fileContents = Files.readAllLines(filePath);
+        boolean wasFound = false;
+
+        for (int i =0; i < fileContents.size(); i++) {
+
+
+                if (fileContents.get(i).toLowerCase().indexOf(userInput.toLowerCase()) != -1 && userInput.toCharArray().length > 0) {
+                    System.out.println("----------------------------------");
+                    System.out.println("You got : " + fileContents.get(i));
+                    System.out.println("----------------------------------");
+                    wasFound = true;
+                }
+
+            }
+        if (!wasFound) {
+            System.out.println("----------------------------------");
+            System.out.println("Could not find : " + userInput);
+            System.out.println("----------------------------------");
+        }
+        }
+
+    public static void viewContactList () throws IOException {
+        Path filePath = Paths.get("file.txt");
+        List<String> fileContents = Files.readAllLines(filePath);
+
+        for (int i =0; i < fileContents.size(); i++) {
+
+            System.out.println(fileContents.get(i));
+
+        }
+
+
+
+    }
+
+
+
+    }
+
+
+

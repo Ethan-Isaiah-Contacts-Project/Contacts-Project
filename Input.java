@@ -13,6 +13,12 @@ public class Input {
         return stringUserInput;
     }
 
+    public static String getSearchString(){
+        System.out.print("Search for : ");
+        stringUserInput = scanner.nextLine();
+        return stringUserInput;
+    }
+
     public static String getString(String prompt){
         System.out.println(prompt);
         System.out.print("Enter a string : ");
